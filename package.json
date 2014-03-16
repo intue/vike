@@ -2,7 +2,7 @@
   "name": "intue.vike",
   "version": "0.0.0",
   "description": "0.1.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha"
   },
@@ -16,5 +16,13 @@
     "tv"
   ],
   "author": "ruwan nawarathne",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~3.4.8",
+    "mongoose": "~3.8.8",
+    "lodash": "~2.4.1",
+    "swig": "~1.3.2",
+    "consolidate": "~0.10.0",
+    "view-helpers": "~0.1.4"
+  }
 }
