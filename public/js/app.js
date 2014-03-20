@@ -24,17 +24,29 @@ Vike.Router.map(function () {
 
 /* -------------------Routes------------------------- */
 
+Vike.IndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('videos');
+  }
+});
 
 Vike.VideosRoute = Ember.Route.extend({
     model: function () {
         return this.store.find('videos');
-    }
+    },
+	afterModel: function(videos, transition) {
+	  console.log(videos.content);
+      this.transitionTo('belt', 'popular');
+  }
 });
 
 Vike.BeltRoute = Ember.Route.extend({
     model: function (params) {
         return this.store.find('belt');
-    }
+    },
+	afterModel: function(belt, transition) {
+		this.transitionTo('video', '3T2Zl0I9VWM');
+	}
 });
 
 Vike.VideoRoute = Ember.Route.extend({
@@ -119,11 +131,15 @@ Vike.Belt.FIXTURES = [
 
 Vike.Videos.FIXTURES = [
     {
-        id: 1,
+        id: 4,
         belttype: 'recommended'
         },
     {
-        id: 2,
+        id: 8,
         belttype: 'popular'
+        },
+		{
+        id: 18,
+        belttype: 'music'
         }
 ];
