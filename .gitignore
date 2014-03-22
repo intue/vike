@@ -21,6 +21,5 @@ node_modules
 
 ### Bower ###
 bower_components
-public/js/libs/*
 
 

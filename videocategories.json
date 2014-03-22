@@ -38,5 +38,8 @@
         {
             "id": 24,
             "title": "Entertainment"
-            }]
+            }],
+    "meta": {
+        "total": 100
+    }
 }
