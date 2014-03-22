@@ -18,25 +18,26 @@
     <meta property="og:site_name" content="Vike - Personalized video experience">
     <meta property="fb:admins" content="APP_ADMIN">
     <link href="/img/icons/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" href="js/libs/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 
 <body>
-    <script type="text/x-handlebars">
+    
+     <script type="text/x-handlebars">
         <div>
             {{outlet}}
           </div>
     </script>
-
-    <script type="text/x-handlebars" id='videos'>
+    
+    <script type="text/x-handlebars" id='videocategories'>
         <div>
               <ul>
               {{#each}} 
-                {{#link-to 'belt' this.belttype}}
-                <li> {{belttype}}</li>
+                {{#link-to 'videos' this.seopath}}
+                <li> {{title}}</li>
                 {{/link-to}}
               {{/each}}
               </ul>
@@ -45,31 +46,41 @@
             {{outlet}}
           </div>
     </script>
-
-    <script type="text/x-handlebars" id='belt'>
-        {{outlet}}
-        <div>
+    
+    <script type="text/x-handlebars" id='videos'>
+       <div>
+            {{outlet}}
+          </div>
+       <div>
+              <ul>
               {{#each}}
-                 {{#link-to 'video' this.id}}
+                {{#link-to 'player' this.seopath}}   
+                <li> {{title}}</li>
                 <img {{bind-attr src=thumbnail alt=title}}>
-                 {{/link-to}}
+                {{/link-to}}
               {{/each}}
-        </div>
+              </ul>
+        </div>    
     </script>
-
-    <script type="text/x-handlebars" id='video'>
-        <div id="ytplayer">
+    
+     <script type="text/x-handlebars" id='player'>
+        <h1>{{title}}</h1>
+        <div>
              <iframe id="player" {{bind-attr src=player}} type="text/html" width="640" height="390"  frameborder="0"></iframe>
         </div>
     </script>
 
-
-
-    <script src="js/libs/jquery-1.10.2.js"></script>
-    <script src="js/libs/handlebars-1.1.2.js"></script>
-    <script src="js/libs/ember-1.4.0.js"></script>
+    <script src="js/libs/jquery/jquery.js"></script>
+    <script src="js/libs/handlebars/handlebars.js"></script>
+    <script src="js/libs/ember/ember.js"></script>
     <script src="js/libs/ember-data/ember-data.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/routes/Videocategories.js"></script>
+    <script src="js/routes/Videos.js"></script>
+    <script src="js/routes/Player.js"></script>
+    <script src="js/models/VideoCategory.js"></script>
+    <script src="js/models/Video.js"></script>   
 </body>
 
 </html>

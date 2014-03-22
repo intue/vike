@@ -1,0 +1,42 @@
+{
+    "videocategory": [{
+            "id": 1,
+            "title": "Film & Animation"
+            },
+        {
+            "id": 2,
+            "title": "Autos & Vehicles"
+            },
+        {
+            "id": 10,
+            "title": "Music"
+            },
+        {
+            "id": 15,
+            "title": "Pets & Animals"
+            },
+        {
+            "id": 17,
+            "title": "Sports"
+            },
+        {
+            "id": 18,
+            "title": "Short Movies"
+            },
+        {
+            "id": 19,
+            "title": "Travel & Events"
+            },
+        {
+            "id": 20,
+            "title": "Gaming"
+            },
+        {
+            "id": 23,
+            "title": "Comedy"
+            },
+        {
+            "id": 24,
+            "title": "Entertainment"
+            }]
+}
