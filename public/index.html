@@ -54,27 +54,41 @@
         <div>
                 {{outlet}}
               </div>
+              <br/>
+              <div>
               <ul id="horiz_container_outer">
 		            <li id="horiz_container_inner">
 			            <ul id="horiz_container">
 				            {{#each}}                               
                                 {{#link-to 'player' this.seopath}}
-                                    <img {{bind-attr src=thumbnail alt=title}}>                  
+                                    <img {{bind-attr src=thumbnail alt=title}}>                 
                                 {{/link-to}}                             
                             {{/each}}
                             <img {{action 'loadmore'}} src="http://placehold.it/320x180">
 			            </ul>
 		            </li>		
 	          </ul>
-	          
+	          <div>
     </script>
 
     <script type="text/x-handlebars" id='player'>
         <div style="float:left">
             <iframe id="player" {{bind-attr src=player}} type="text/html" width="640" height="390"  frameborder="0"></iframe>
         </div>
-        <div style="float:left"><h3>{{title}}</h3></div>
+        <div style="float:left">
+            <h3>{{title}}</h3>
+            <h4>published : {{format-date publishedAt}}</h4>
+             <h5>views : {{viewCount}}</h5>
+             <h5>likes : {{likeCount}}</h5>
+             <h5>dislikes : {{dislikeCount}}</h5>
+             <h5>comments : {{commentCount}}</h5>
+        </div>
         <div style="clear:both"></div>
+        {{#each relatedVideos}}   
+            {{#link-to 'player' this.id}}
+                <img {{bind-attr src=thumbnail alt=title}}>                 
+            {{/link-to}}             
+        {{/each}}
     </script>
 
 
@@ -92,6 +106,7 @@
     <script src="js/models/VideoCategory.js"></script>
     <script src="js/models/Video.js"></script>
     <script type="application/javascript" src="http://freegeoip.net/json/?callback=setLocation"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
 
 </body>
 

@@ -1,5 +1,12 @@
 Vike.PlayerRoute = Ember.Route.extend({
     model: function (params) {
-        return this.store.find('video', params.videoid.split('_')[0]);
+        return this.store.find('video', params.videoid);
+    },
+    setupController: function (controller, model) {
+        controller.set('model', model);
+        console.log(model);
+        Ember.$.getJSON('/api/v2/'+ model.id+'/related').then(function (data) {
+            controller.set('relatedVideos', data.relatedVideos);
+        });
     }
 });

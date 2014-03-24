@@ -1,10 +1,10 @@
 Vike = Ember.Application.create();
 
 Vike.ApplicationAdapter = DS.RESTAdapter.extend({
-    host: 'http://localhost:5800/api/v1',
+    host: 'http://localhost:5800/api/v2',
     headers: {
         "API_KEY": "secret key",
-        "COUNTRY_CODE": "SG"
+        "COUNTRY_CODE": "CN"
     }
 });
 
@@ -20,4 +20,8 @@ Vike.VideosView = Ember.View.extend({
     didInsertElement: function () {
         this.$('#horiz_container_outer').horizontalScroll();
     }
+});
+
+Ember.Handlebars.helper('format-date', function(date) {
+  return moment(date).fromNow();
 });

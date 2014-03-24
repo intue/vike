@@ -38,7 +38,7 @@ app.get('/api/v1/videos/:id', function (req, res) {
     res.send(video);
 });
 
-
+require('./api/googledata')(app);
 
 // Bootstrap routes
 //var routes_path = __dirname + '/app/routes';
