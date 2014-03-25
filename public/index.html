@@ -20,80 +20,125 @@
     <link href="/img/icons/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.horizontal.scroll.css" />
-    <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="js/libs/bootstrap/dist/css/bootstrap.css" />
 </head>
 
 <body>
 
     <script type="text/x-handlebars">
-        <div>
-            {{outlet}}
-          </div>
-    </script>
+        <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">VIke</a>
+    </div>
 
-    <script type="text/x-handlebars" id='videocategories'>
-        <div>
-              {{#each}}
-                <div style="float:left">
-                    {{#link-to 'videos' this.seopath}}
-                        <span>{{title}}</span>
-                    {{/link-to}}
-                    <span>|   |</span>
-                </div>
-              {{/each}}
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
         </div>
-        <br/>      
-        <div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+        <div class="container-fluid">
             {{outlet}}
-          </div>
+        </div>
     </script>
 
     <script type="text/x-handlebars" id='videos' data-template-name="videos">
-        <div>
-                {{outlet}}
-              </div>
-              <br/>
-              <div>
-              <ul id="horiz_container_outer">
-		            <li id="horiz_container_inner">
-			            <ul id="horiz_container">
-				            {{#each}}                               
+        <div class="row">
+            {{outlet}}
+       </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul id="horiz_container_outer">
+                    <li id="horiz_container_inner">
+                        <ul id="horiz_container">
+                            {{#each}}                               
                                 {{#link-to 'player' this.seopath}}
                                     <img {{bind-attr src=thumbnail alt=title}}>                 
                                 {{/link-to}}                             
                             {{/each}}
                             <img {{action 'loadmore'}} src="http://placehold.it/320x180">
-			            </ul>
-		            </li>		
-	          </ul>
-	          <div>
+                        </ul>
+                    </li>		
+                </ul>
+            </div>
+	   </div>
     </script>
 
     <script type="text/x-handlebars" id='player'>
-        <div style="float:left">
-            <iframe id="player" {{bind-attr src=player}} type="text/html" width="640" height="390"  frameborder="0"></iframe>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <iframe id="player" {{bind-attr src=player}} 
+                    type="text/html" width="640" height="390"  
+                    frameborder="0">
+                    </iframe>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span>{{title}}</span>
+                    <span>published : {{format-date publishedAt}}</span>
+                    <span>views : {{viewCount}}</span>
+                    <span>likes : {{likeCount}}</span>
+                    <span>dislikes : {{dislikeCount}}</span>
+                </div>
+            </div>
         </div>
-        <div style="float:left">
-            <h3>{{title}}</h3>
-            <h4>published : {{format-date publishedAt}}</h4>
-             <h5>views : {{viewCount}}</h5>
-             <h5>likes : {{likeCount}}</h5>
-             <h5>dislikes : {{dislikeCount}}</h5>
-             <h5>comments : {{commentCount}}</h5>
+        <div class="col-md-6">
+            {{#each relatedVideos}}   
+                {{#link-to 'player' this.id}}
+                    <img {{bind-attr src=thumbnail alt=title}}>                 
+                {{/link-to}}             
+            {{/each}}
         </div>
-        <div style="clear:both"></div>
-        {{#each relatedVideos}}   
-            {{#link-to 'player' this.id}}
-                <img {{bind-attr src=thumbnail alt=title}}>                 
-            {{/link-to}}             
-        {{/each}}
     </script>
 
 
 
     <script src="js/libs/jquery/jquery.js"></script>
+    <script src="js/libs/bootstrap/dist/js/bootstrap.js"></script>
     <script src="js/libs/jquery.horizontal.scroll.js" type="text/javascript"></script>
     <script src="js/libs/handlebars/handlebars.js"></script>
     <script src="js/libs/ember/ember.js"></script>

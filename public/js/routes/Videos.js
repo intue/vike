@@ -1,18 +1,17 @@
 Vike.VideosRoute = Ember.Route.extend({
-    model: function (params) {
+    model: function () {
         return this.store.findQuery('video', {
-            category: params.category.split('_')[0],
-            country_code: Vike.Location.country_code,
-            limit: 10,
-            offset: 0
+            country_code: Vike.Location.country_code
         });
+    },
+    afterModel: function (videos, transition) {
+        this.transitionTo('player', videos.content[0].id);
     }
 });
 
 
 Vike.VideosController = Ember.ArrayController.extend({
     actions: {
-        loadmore: function () {
-        }
+        loadmore: function () {}
     }
 });

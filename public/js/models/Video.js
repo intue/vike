@@ -6,6 +6,9 @@ Vike.Video = DS.Model.extend({
     viewCount: DS.attr('string'),
     likeCount: DS.attr('string'),
     dislikeCount: DS.attr('string'),
+    percentage: function () {
+        return parseInt((parseInt(this.get('likeCount')) / (parseInt(this.get('likeCount')) + parseInt(this.get('dislikeCount'))))*100);
+    }.property('likeCount', 'dislikeCount'),
     commentCount: DS.attr('string'),
     seopath: function () {
         return this.get('id');

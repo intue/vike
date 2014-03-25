@@ -25,14 +25,13 @@ var getCategoryList = function getCategoryList(client, countryCode) {
     return deferred.promise;
 };
 
-var getVideoList = function getVideoList(category, countryCode, client) {
+var getVideoList = function getVideoList(countryCode, client) {
     var deferred = when.defer();
     var params = {
         part: 'snippet,statistics',
         regionCode: countryCode,
         chart: "mostPopular",
-        maxResults: 20,
-        videoCategoryId: category.toString()
+        maxResults: 50
     };
     var req1 = client.youtube.videos.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
@@ -71,6 +70,7 @@ var getRelatedVideoList = function getRelatedVideoList(videoId, client) {
     var params = {
         part: 'snippet',
         type: 'video',
+        order: 'rating',
         relatedToVideoId: videoId
     };
     var req1 = client.youtube.search.list(params).withApiKey(API_KEY);
@@ -79,16 +79,16 @@ var getRelatedVideoList = function getRelatedVideoList(videoId, client) {
             console.log('response error--------------:', err);
             deferred.reject(err);
         } else {
-            console.log('response resolved-----');
+            console.log('response resolved-----', response);
             deferred.resolve(response);
         }
     });
     return deferred.promise;
 };
 
-var getVideos = function getVideos(category, countryCode, ondata) {
+var getVideos = function getVideos(countryCode, ondata) {
     getGoogleYouTubeClinet.then(function (client) {
-        return getVideoList(category, countryCode, client);
+        return getVideoList(countryCode, client);
     }).then(function (data) {
         var result = {
             video: []
@@ -184,12 +184,11 @@ module.exports = function (app) {
     });
 
     app.get('/api/v2/videos', function (req, res) {
-        var category = req.query.category || 1;
         var countryCode = req.query.country_code || 'US';
         var ondata = function (data) {
             res.send(data);
         };
-        getVideos(category, countryCode, ondata);
+        getVideos(countryCode, ondata);
     });
 
     app.get('/api/v2/videos/:videoId', function (req, res) {

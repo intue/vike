@@ -1,13 +1,9 @@
 Vike.Router.map(function () {
-    this.resource('videocategories', {
+    this.resource('videos', {
         path: '/'
     }, function () {
-        this.resource('videos', {
-            path: ':category'
-        }, function () {
-            this.resource('player', {
-                path: ':videoid'
-            });
+        this.resource('player', {
+            path: ':videoid'
         });
     });
 });
