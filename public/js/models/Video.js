@@ -14,6 +14,6 @@ Vike.Video = DS.Model.extend({
         return this.get('id');
     }.property('id', 'title'),
     player: function () {
-        return 'http://www.youtube.com/embed/' + this.get('id') + '?enablejsapi=1&origin=http://example.com';
+        return 'http://www.youtube.com/embed/' + this.get('id') + '?enablejsapi=1&autoplay=1&origin=http://example.com';
     }.property('id')
 });
