@@ -7,6 +7,7 @@ Vike.VideosRoute = Ember.Route.extend({
 });
 
 Vike.VideosController = Ember.ArrayController.extend({
+    isHomeMode : true,
     actions: {
         loadmore: function () {}
     }

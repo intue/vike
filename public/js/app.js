@@ -16,9 +16,12 @@ function setLocation(locationData) {
     };
 }
 
-Vike.VideosView = Ember.View.extend({
+Vike.ApplicationView = Ember.View.extend({
     didInsertElement: function () {
-        this.$('#horiz_container_outer').horizontalScroll();
+        var that = this;
+        this.$( "#brand" ).click(function() {
+            that.get('controller').controllerFor('videos').set('isHomeMode', true);
+        });        
     }
 });
 

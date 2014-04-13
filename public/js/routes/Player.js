@@ -3,6 +3,7 @@ Vike.PlayerRoute = Ember.Route.extend({
         return this.store.find('video', params.videoid);
     },
     setupController: function (controller, model) {
+        this.controllerFor('videos').set('isHomeMode', false);
         controller.set('model', model);
         Ember.$.getJSON('/api/v2/'+ model.id+'/related').then(function (data) {
             controller.set('relatedVideos', data.relatedVideos);

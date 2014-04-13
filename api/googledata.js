@@ -147,7 +147,7 @@ var getRelatedVideos = function getVideos(videoId, ondata) {
             result.relatedVideos.push({
                 id: item.id.videoId,
                 title: item.snippet.title,
-                thumbnail: item.snippet.thumbnails.medium.url
+                thumbnail: item.snippet.thumbnails.default.url
             });
         });
         console.log(result);
