@@ -100,6 +100,7 @@
                 </div>				
              {{/each}}                                     
          {{else}}
+              {{outlet}}
               <div class="col-md-3">
                     <div class="row-fluid">
                     {{#each}}
@@ -118,19 +119,18 @@
                      {{/each}}
                     </div> 
               </div>
-            {{outlet}}
          {{/if}}
     </div>
     </script>
 
     <script type="text/x-handlebars" id='player'>    
                 <div class="col-md-6">
-                    <div class="panel panel-primary affix">
+                    <div class="panel">
                         <div class="panel-heading">
                             <h4 class="panel-title">{{title}}</h4>
                         </div>
                         <div class="panel-body">
-                            <div>
+                            <div class="vid">
                                 <iframe id="player" {{bind-attr src=player}} 
                                     type="text/html" width="630" height="380"  
                                     frameborder="0">
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                   <div class="list-group affix">
+                   <div class="list-group">
                       {{#each relatedVideos}}
                           {{#link-to 'player' this.id class='list-group-item'}}
                               <div class="row">

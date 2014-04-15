@@ -1,4 +1,8 @@
-body { padding-top: 50px; background-color: #c3dcea}
+body { padding-top: 50px; background:#464646 !important;}
+
+h3 {
+    color:#fff !important;
+}
 
 .navbar-brand {
     width: 111px;
@@ -30,8 +34,8 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
 
 
 .thumbnail.default {
-    min-height: 250px;
-    border: 1;
+    min-height: 240px;
+    border: 0;
     padding: 0;
     transition: none;
     border-radius: 0;
@@ -64,4 +68,13 @@ font-weight: 700;
     opacity: 0;
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+}
+
+.panel-heading {
+    background-color: #101010 !important;
+}
+`
+.panel-body {
+    background-color: #393939 !important;
+    padding: 0 !important;
 }
