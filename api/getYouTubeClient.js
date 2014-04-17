@@ -8,10 +8,10 @@ var getGoogleYouTubeClinet = function getGoogleYouTubeClinet() {
         .discover('youtube', 'v3')
         .execute(function (err, client) {
             if (err) {
-                console.log('client error-----', err);
+                console.log('client discovery error : ', err);
                 deferred.reject(err);
             } else {
-                console.log('client resolved');
+                console.log('client discoverd');
                 deferred.resolve(client);
             }
         });

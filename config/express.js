@@ -1,4 +1,5 @@
 var express = require('express');
+var connect = require('connect');
 var consolidate = require('consolidate');
 var config = require('./config');
 var helpers = require('view-helpers');
@@ -19,13 +20,14 @@ module.exports = function (app) {
         app.use(express.urlencoded());
         app.use(express.json()); // parse request body
         app.use(express.methodOverride()); // simulate DELETE and PUT
+        
+        app.use(connect.logger('short'));
+        app.use(connect.favicon('public/img/icons/favicon.ico')); // minimize bandwidth usage utilized by /favicon.ico 
 
         // Dynamic helpers
         app.use(helpers(config.app.name));
         
         app.use(app.router);
-
-        //app.use(express.favicon(config.root + '/public/img/icons/favicon.ico'));
 
         // set the static files location /public/img will be /img for users
         app.use(express.static(config.root + '/public'));

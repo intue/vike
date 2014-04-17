@@ -3,8 +3,6 @@ var getGoogleYouTubeClinet = require('./getYouTubeClient.js')();
 
 var API_KEY = 'AIzaSyCT8CYXZFfpPtVWja4bNw2CiCewdhzDiLY';
 
-
-
 var getCategoryList = function getCategoryList(client, countryCode) {
     var deferred = when.defer();
     var params = {
@@ -15,10 +13,10 @@ var getCategoryList = function getCategoryList(client, countryCode) {
     var req1 = client.youtube.videoCategories.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
         if (err) {
-            console.log('response error-------------:', err);
+            console.log('category list response error : ', err);
             deferred.reject(err);
         } else {
-            console.log('response resolved');
+            console.log('got category list response');
             deferred.resolve(response);
         }
     });
@@ -36,10 +34,10 @@ var getVideoList = function getVideoList(countryCode, client) {
     var req1 = client.youtube.videos.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
         if (err) {
-            console.log('response error--------------:', err);
+            console.log('video list response error : ', err);
             deferred.reject(err);
         } else {
-            console.log('response resolved-----');
+            console.log('got video list response');
             deferred.resolve(response);
         }
     });
@@ -55,10 +53,10 @@ var getSingleVideo = function getVideoList(videoId, client) {
     var req1 = client.youtube.videos.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
         if (err) {
-            console.log('response error--------------:', err);
+            console.log('video response error : ', err);
             deferred.reject(err);
         } else {
-            console.log('response resolved-----');
+            console.log('got video response');
             deferred.resolve(response);
         }
     });
@@ -76,10 +74,10 @@ var getRelatedVideoList = function getRelatedVideoList(videoId, client) {
     var req1 = client.youtube.search.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
         if (err) {
-            console.log('response error--------------:', err);
+            console.log('related videos response error : ', err);
             deferred.reject(err);
         } else {
-            console.log('response resolved-----', response);
+            console.log('got related videos response');
             deferred.resolve(response);
         }
     });
@@ -93,7 +91,6 @@ var getVideos = function getVideos(countryCode, ondata) {
         var result = {
             video: []
         };
-        //        console.log('got video data');
         data.items.forEach(function (item) {
             result.video.push({
                 id: item.id,
@@ -142,7 +139,6 @@ var getRelatedVideos = function getVideos(videoId, ondata) {
         var result = {
             relatedVideos: []
         };
-        //        console.log('got video data');
         data.items.forEach(function (item) {
             result.relatedVideos.push({
                 id: item.id.videoId,
@@ -150,38 +146,37 @@ var getRelatedVideos = function getVideos(videoId, ondata) {
                 thumbnail: item.snippet.thumbnails.default.url
             });
         });
-        console.log(result);
         ondata(JSON.stringify(result));
     });
 };
 
-var getThings = function (countryCode, ondata) {
-    getGoogleYouTubeClinet.then(function (client) {
-        return getCategoryList(client, countryCode);
-    }).then(function (data) {
-        var result = {
-            videocategory: []
-        };
-        console.log('got data');
-        data.items.forEach(function (item) {
-            result.videocategory.push({
-                id: item.id,
-                title: item.snippet.title
-            });
-        });
-        ondata(JSON.stringify(result));
-    }, function (error) {
-
-    });
-};
+//var getThings = function (countryCode, ondata) {
+//    getGoogleYouTubeClinet.then(function (client) {
+//        return getCategoryList(client, countryCode);
+//    }).then(function (data) {
+//        var result = {
+//            videocategory: []
+//        };
+//        
+//        data.items.forEach(function (item) {
+//            result.videocategory.push({
+//                id: item.id,
+//                title: item.snippet.title
+//            });
+//        });
+//        ondata(JSON.stringify(result));
+//    }, function (error) {
+//
+//    });
+//};
 
 module.exports = function (app) {
-    app.get('/api/v2/videocategories', function (req, res) {
-        var countryCode = req.query.country_code || 'US';
-        getThings(countryCode, function (data) {
-            res.send(data);
-        });
-    });
+//    app.get('/api/v2/videocategories', function (req, res) {
+//        var countryCode = req.query.country_code || 'US';
+//        getThings(countryCode, function (data) {
+//            res.send(data);
+//        });
+//    });
 
     app.get('/api/v2/videos', function (req, res) {
         var countryCode = req.query.country_code || 'US';
