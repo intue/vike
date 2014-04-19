@@ -1,8 +1,9 @@
 Vike.VideosRoute = Ember.Route.extend({
     model: function () {
-        return this.store.findQuery('video', {
+        var that = this;
+        return initVikeUser.then(function(){ return that.store.findQuery('video', {
             country_code: Vike.Location.country_code
-        });
+        })});
     }
 });
 

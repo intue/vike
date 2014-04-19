@@ -19,12 +19,16 @@ function setLocation(locationData) {
 Vike.ApplicationView = Ember.View.extend({
     didInsertElement: function () {
         var that = this;
-        this.$( "#brand" ).click(function() {
+        this.$("#brand").click(function () {
             that.get('controller').controllerFor('videos').set('isHomeMode', true);
-        });        
+        });
     }
 });
 
-Ember.Handlebars.helper('format-date', function(date) {
-  return moment(date).fromNow();
+Ember.Handlebars.helper('format-date', function (date) {
+    return moment(date).fromNow();
 });
+
+
+
+

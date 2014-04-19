@@ -29,7 +29,7 @@ var getVideoList = function getVideoList(countryCode, client) {
         part: 'snippet,statistics',
         regionCode: countryCode,
         chart: "mostPopular",
-        maxResults: 50
+        maxResults: 12
     };
     var req1 = client.youtube.videos.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {

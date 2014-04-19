@@ -1,6 +1,11 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var uuid = require('uuid');
+var crypto = require('crypto');
+var decryptKey = '1234567890';
+
+
 
 /**
  * Main application entry file.
@@ -14,31 +19,38 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // Express settings
 require('./config/express')(app);
 
-app.get('/api/v1/videocategories', function (req, res) {
-    res.send(require('./videocategories.json'));
-});
+require('./api/googledata')(app);
 
-app.get('/api/v1/videos', function (req, res) {
-    var category = req.query.category || 1;
-    if (category == 1) {
-        res.send(require('./videos_1.json'));
-    } else {
-        res.send(require('./videos.json'));
+app.get('/api/v2/user/recover/:recoveryKey', function (req, res) {
+    console.log(req.params.recoveryKey);
+    if (req.params.recoveryKey) {
+        if (req.params.recoveryKey === 'anonymous') {
+            res.setHeader('Content-Type', 'application/javascript');
+            if (!req.session.userVikey) {
+                var userId = uuid.v1();
+                req.session.userVikey = {
+                    userId: userId
+                };
+                var cipher = crypto.createCipher('aes-256-cbc', decryptKey);
+                var encryptedUserId = cipher.update(userId, 'utf8', 'base64');
+                encryptedUserId = encryptedUserId + cipher.final('base64')
+                res.end('restoreUserSession(\'' + encryptedUserId + '\')')
+            } else {
+                res.end('restoreUserSession(\'known\')');
+            }
+        } else {
+            
+            var decipher = crypto.createDecipher('aes-256-cbc', decryptKey);
+            var decryptedUserId = decipher.update(req.params.recoveryKey, 'base64', 'utf8');
+            decryptedUserId = decryptedUserId + decipher.final('utf8');
+
+            req.session.userVikey = {
+                userId: decryptedUserId
+            };
+            res.end();
+        }
     }
 });
-
-app.get('/api/v1/videos/:id', function (req, res) {
-    var video = {
-        "video": {
-            "id": req.params.id,
-            "title": "Everything Wrong With Harry Potter & The Goblet Of Fire",
-            "thumbnail": "https://i1.ytimg.com/vi/nyugoCASVy8/mqdefault.jpg"
-        }
-    };
-    res.send(video);
-});
-
-require('./api/googledata')(app);
 
 // Bootstrap routes
 //var routes_path = __dirname + '/app/routes';
