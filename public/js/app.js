@@ -1,11 +1,18 @@
 Vike = Ember.Application.create();
 
-Vike.ApplicationAdapter = DS.RESTAdapter.extend({
-    host: 'http://localhost:5800/api/v2',
-    headers: {
-        "API_KEY": "secret key",
-        "COUNTRY_CODE": "CN"
-    }
+initVikeUser.then(function (vikeyr) {
+    DS.RESTAdapter.reopen({
+        host: 'http://localhost:5800/api/v2',
+        headers: {
+            'VIKEYR' : vikeyr
+        }
+    });
+
+    Ember.$.ajaxSetup({
+        headers: {
+            'VIKEYR' : vikeyr
+        }
+    });
 });
 
 function setLocation(locationData) {
@@ -28,7 +35,3 @@ Vike.ApplicationView = Ember.View.extend({
 Ember.Handlebars.helper('format-date', function (date) {
     return moment(date).fromNow();
 });
-
-
-
-

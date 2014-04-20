@@ -3,9 +3,7 @@ var app = express();
 var fs = require('fs');
 var uuid = require('uuid');
 var crypto = require('crypto');
-var decryptKey = '1234567890';
-
-
+var decryptKey = 'vx6r9Dy7Li6PG3LsiAOP';
 
 /**
  * Main application entry file.
@@ -21,35 +19,20 @@ require('./config/express')(app);
 
 require('./api/googledata')(app);
 
-app.get('/api/v2/user/recover/:recoveryKey', function (req, res) {
-    console.log(req.params.recoveryKey);
-    if (req.params.recoveryKey) {
-        if (req.params.recoveryKey === 'anonymous') {
-            res.setHeader('Content-Type', 'application/javascript');
-            if (!req.session.userVikey) {
-                var userId = uuid.v1();
-                req.session.userVikey = {
-                    userId: userId
-                };
-                var cipher = crypto.createCipher('aes-256-cbc', decryptKey);
-                var encryptedUserId = cipher.update(userId, 'utf8', 'base64');
-                encryptedUserId = encryptedUserId + cipher.final('base64')
-                res.end('restoreUserSession(\'' + encryptedUserId + '\')')
-            } else {
-                res.end('restoreUserSession(\'known\')');
-            }
-        } else {
-            
-            var decipher = crypto.createDecipher('aes-256-cbc', decryptKey);
-            var decryptedUserId = decipher.update(req.params.recoveryKey, 'base64', 'utf8');
-            decryptedUserId = decryptedUserId + decipher.final('utf8');
+app.get('/api/v2/user/initialize', function (req, res) {
+    var cipher = crypto.createCipher('aes-256-cbc', decryptKey);
+    var encryptedUserId = cipher.update(userId, 'utf8', 'base64');
+    encryptedUserId = encryptedUserId + cipher.final('base64');
+    res.end(encryptedUserId);
+});
 
-            req.session.userVikey = {
-                userId: decryptedUserId
-            };
-            res.end();
-        }
-    }
+app.post('/api/v2/userbehaviour', function (req, res) {
+    var decipher = crypto.createDecipher('aes-256-cbc', decryptKey);
+    var decryptedUser = decipher.update(decodeURIComponent(req.headers.vikeyr), 'base64', 'utf8');
+    decryptedUser = decryptedUser + decipher.final('utf8');
+    console.log('statistics ', decryptedUser, req.body);
+    res.status(201);
+    res.end();
 });
 
 // Bootstrap routes

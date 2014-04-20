@@ -1,5 +1,29 @@
+YouTube_PlayerState = {};
+YouTube_PlayerState.UNSTARTED = -1;
+YouTube_PlayerState.ENDED = 0;
+YouTube_PlayerState.PLAYING = 1;
+YouTube_PlayerState.PAUSED = 2;
+YouTube_PlayerState.BUFFERING = 3;
+YouTube_PlayerState.CUED = 5;
+
 function onPlayerStateChange(event) {
-    Ember.$.post('/api/v2/userbehaviour', {});
+    var player = document.getElementById("ytPlayer");
+    var videoId = player.getVideoUrl().match(/[?&]v=([^&]+)/)[1];
+    if (event == YouTube_PlayerState.PLAYING && player.getCurrentTime() === 0) {
+        Ember.$.post('/api/v2/userbehaviour', {
+            videoId : videoId,
+            playerState : YouTube_PlayerState.PLAYING,
+            timeStamp : Date.now()
+        });
+    }
+
+    if (event == YouTube_PlayerState.ENDED) {
+        Ember.$.post('/api/v2/userbehaviour', {
+            videoId : videoId,
+            playerState : YouTube_PlayerState.ENDED,
+            timeStamp : Date.now()
+        });
+    }
 }
 
 function onPlayerError(errorCode) {
@@ -17,9 +41,9 @@ function loadVideo(videoId) {
     if (player) {
         player.loadVideoById(videoId);
     } else {
-        setTimeout(function(){
+        setTimeout(function () {
             loadPlayer(videoId);
-        }, 1);        
+        }, 1);
     }
 }
 
