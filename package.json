@@ -28,7 +28,8 @@
     "when": "~3.0.1",
     "connect": "~2.14.4",
     "evercookie": "~0.2.1",
-    "uuid": "~1.4.1"
+    "uuid": "~1.4.1",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

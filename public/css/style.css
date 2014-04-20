@@ -1,17 +1,16 @@
-body { padding-top: 50px; background:#464646 !important;}
-
-h3 {
-    color:#fff !important;
+body {
+    padding-top: 50px;
+    background: #464646 !important;
 }
-
+h3 {
+    color: #fff !important;
+}
 .navbar-brand {
     width: 111px;
     background-image: url('/img/vike.png');
     background-repeat: no-repeat;
     background-position: center;
 }
-
-
 /*
 Reference: http://avexdesigns.com/responsive-youtube-embed/
 */
@@ -19,9 +18,10 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
 .vid {
     position: relative;
     padding-bottom: 56.25%;
-    padding-top: 30px; height: 0; overflow: hidden;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
 }
- 
 .vid iframe,
 .vid object,
 .vid embed {
@@ -31,8 +31,6 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
     width: 100%;
     height: 100%;
 }
-
-
 .thumbnail.default {
     min-height: 240px;
     border: 0;
@@ -41,18 +39,15 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
     border-radius: 0;
     background-color: transparent;
 }
-
 .thumbnail.default h3 {
-margin: 0;
-font-size: .9em;
-line-height: 1.4em;
-font-weight: 700;
+    margin: 0;
+    font-size: .9em;
+    line-height: 1.4em;
+    font-weight: 700;
 }
-
 .thumbnail.default:hover .play {
     opacity: 1;
 }
-
 .thumbnail.default .play {
     display: block;
     width: 48px;
@@ -69,12 +64,56 @@ font-weight: 700;
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
-
 .panel-heading {
     background-color: #101010 !important;
 }
-`
 .panel-body {
     background-color: #393939 !important;
     padding: 0 !important;
+}
+
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin-top: 20px;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.navbar-wrapper .navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar-content
+{
+    width:320px;
+    padding: 15px;
+    padding-bottom:0px;
+}
+.navbar-content:before, .navbar-content:after
+{
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.navbar-nav.navbar-right:last-child {
+margin-right: 15px !important;
+}
+.navbar-footer 
+{
+    background-color:#DDD;
+}
+.navbar-footer-content { padding:15px 15px 15px 15px; }
+.dropdown-menu {
+padding: 0px;
+overflow: hidden;
 }

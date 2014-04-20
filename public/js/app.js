@@ -4,13 +4,13 @@ initVikeUser.then(function (vikeyr) {
     DS.RESTAdapter.reopen({
         host: 'http://localhost:5800/api/v2',
         headers: {
-            'VIKEYR' : vikeyr
+            'VIKEYR': vikeyr
         }
     });
 
     Ember.$.ajaxSetup({
         headers: {
-            'VIKEYR' : vikeyr
+            'VIKEYR': vikeyr
         }
     });
 });
@@ -34,4 +34,11 @@ Vike.ApplicationView = Ember.View.extend({
 
 Ember.Handlebars.helper('format-date', function (date) {
     return moment(date).fromNow();
+});
+
+var socket = io.connect('http://localhost:5800/');
+
+socket.emit('subscribe', 'abc');
+socket.on('event', function (data) {
+    console.log('socket.io', data);
 });
