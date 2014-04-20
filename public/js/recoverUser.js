@@ -1,4 +1,4 @@
-initVikeUser = new Promise(function (resolve, reject) {
+initVikeUser = new Ember.RSVP.Promise(function (resolve, reject) {
     document.addEventListener('userrecovered', function (e) {
         resolve();
     }, false);
