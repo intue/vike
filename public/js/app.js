@@ -32,13 +32,20 @@ Vike.ApplicationView = Ember.View.extend({
     }
 });
 
-Ember.Handlebars.helper('format-date', function (date) {
-    return moment(date).fromNow();
+Vike.NavbarController = Ember.ObjectController.extend({
+    notificationCount: 0
 });
 
-var socket = io.connect('http://localhost:5800/');
+Vike.NavbarView = Ember.View.extend({
+    didInsertElement: function () {
+        var that = this;
+        registerEventNotification(function () {
+            var value = parseInt(that.get('controller').get('notificationCount'));
+            that.get('controller').set('notificationCount', value + 1);
+        });
+    }
+});
 
-socket.emit('subscribe', 'abc');
-socket.on('event', function (data) {
-    console.log('socket.io', data);
+Ember.Handlebars.helper('format-date', function (date) {
+    return moment(date).fromNow();
 });

@@ -1,23 +1,8 @@
 <div class="row-fluid">
-    {{#if isHomeMode}} {{#each}}
-    <div class="col-sm-6 col-md-3">
-        <div class="thumbnail default">
-            {{#link-to 'player' this.seopath}}
-            <span class="play"></span>
-            <img {{bind-attr src=thumbnail alt=title}}>{{/link-to}}
-            <div class="caption">
-                <h3>{{title}}</h3>
-            </div>
-        </div>
-
-    </div>
-    {{/each}} {{else}} {{outlet}}
-    <div class="col-md-3">
-        <div class="row-fluid">
-            {{#each}}
-            <div class="col-sm-12 col-md-12">
+    {{#if isHomeMode}} 
+        {{#each}}
+            <div class="col-sm-6 col-md-3">
                 <div class="thumbnail default">
-                    <span class="badge">new</span>
                     {{#link-to 'player' this.seopath}}
                     <span class="play"></span>
                     <img {{bind-attr src=thumbnail alt=title}}>{{/link-to}}
@@ -26,8 +11,35 @@
                     </div>
                 </div>
             </div>
-            {{/each}}
+        {{/each}}
+        {{#if loadingMore}} 
+           Loading... 
+        {{else}}
+           <a href='#' {{action "getMore"}} class="btn btn-default btn-lg">Load more videos</a>
+        {{/if}} 
+    {{else}} 
+        {{outlet}}
+        <div class="col-md-3 inf-scroll-outer-container vertical">
+            <div class="row-fluid">
+                {{#each}}
+                <div class="col-sm-12 col-md-12">
+                    <div class="thumbnail default">
+                        <span class="badge">new</span>
+                        {{#link-to 'player' this.seopath}}
+                        <span class="play"></span>
+                        <img {{bind-attr src=thumbnail alt=title}}>{{/link-to}}
+                        <div class="caption">
+                            <h3>{{title}}</h3>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{#if loadingMore}} 
+                   Loading... 
+                {{else}}
+                   <a href='#' {{action "getMore"}} class="btn btn-default btn-lg">Load more videos</a>
+                {{/if}}  
+            </div>
         </div>
-    </div>
     {{/if}}
 </div>

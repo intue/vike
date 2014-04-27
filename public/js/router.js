@@ -6,4 +6,8 @@ Vike.Router.map(function () {
             path: ':videoid'
         });
     });
+    
+    this.resource('about', {
+        path : '/about'
+    });
 });

@@ -23,7 +23,7 @@ var getCategoryList = function getCategoryList(client, countryCode) {
     return deferred.promise;
 };
 
-var getVideoList = function getVideoList(countryCode, client) {
+var getVideoList = function getVideoList(client, countryCode, page, videoCategory) {
     var deferred = when.defer();
     var params = {
         part: 'snippet,statistics',
@@ -31,6 +31,15 @@ var getVideoList = function getVideoList(countryCode, client) {
         chart: "mostPopular",
         maxResults: 12
     };
+
+    if (page) {
+        params.pageToken = page;
+    }
+
+    if (videoCategory) {
+        params.videoCategoryId = videoCategory;
+    }
+
     var req1 = client.youtube.videos.list(params).withApiKey(API_KEY);
     req1.execute(function (err, response) {
         if (err) {
@@ -44,7 +53,7 @@ var getVideoList = function getVideoList(countryCode, client) {
     return deferred.promise;
 };
 
-var getSingleVideo = function getVideoList(videoId, client) {
+var getSingleVideo = function getSingleVideo(videoId, client) {
     var deferred = when.defer();
     var params = {
         part: 'snippet,statistics',
@@ -84,12 +93,16 @@ var getRelatedVideoList = function getRelatedVideoList(videoId, client) {
     return deferred.promise;
 };
 
-var getVideos = function getVideos(countryCode, ondata) {
+var getVideos = function getVideos(countryCode, videoCategory, page, ondata) {
     getGoogleYouTubeClinet.then(function (client) {
-        return getVideoList(countryCode, client);
+        return getVideoList(client, countryCode, page, videoCategory);
     }).then(function (data) {
         var result = {
-            video: []
+            video: [],
+            videoPaging: [{
+                id: 1,
+                nextPageToken: data.nextPageToken
+            }]
         };
         data.items.forEach(function (item) {
             result.video.push({
@@ -132,7 +145,7 @@ var getVideo = function getVideos(videoId, ondata) {
     });
 };
 
-var getRelatedVideos = function getVideos(videoId, ondata) {
+var getRelatedVideos = function getRelatedVideos(videoId, ondata) {
     getGoogleYouTubeClinet.then(function (client) {
         return getRelatedVideoList(videoId, client);
     }).then(function (data) {
@@ -143,7 +156,8 @@ var getRelatedVideos = function getVideos(videoId, ondata) {
             result.relatedVideos.push({
                 id: item.id.videoId,
                 title: item.snippet.title,
-                thumbnail: item.snippet.thumbnails.default.url
+                thumbnail: item.snippet.thumbnails.
+                default.url
             });
         });
         ondata(JSON.stringify(result));
@@ -171,19 +185,21 @@ var getRelatedVideos = function getVideos(videoId, ondata) {
 //};
 
 module.exports = function (app) {
-//    app.get('/api/v2/videocategories', function (req, res) {
-//        var countryCode = req.query.country_code || 'US';
-//        getThings(countryCode, function (data) {
-//            res.send(data);
-//        });
-//    });
+    //    app.get('/api/v2/videocategories', function (req, res) {
+    //        var countryCode = req.query.country_code || 'US';
+    //        getThings(countryCode, function (data) {
+    //            res.send(data);
+    //        });
+    //    });
 
     app.get('/api/v2/videos', function (req, res) {
         var countryCode = req.query.country_code || 'US';
+        var videoCategory = req.query.videoCategory;
+        var page = req.query.pageToken;
         var ondata = function (data) {
             res.send(data);
         };
-        getVideos(countryCode, ondata);
+        getVideos(countryCode, videoCategory, page, ondata);
     });
 
     app.get('/api/v2/videos/:videoId', function (req, res) {

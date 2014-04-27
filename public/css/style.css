@@ -64,6 +64,9 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
+.panel {
+    border: 0 !important;
+}
 .panel-heading {
     background-color: #101010 !important;
 }
@@ -71,49 +74,71 @@ Reference: http://avexdesigns.com/responsive-youtube-embed/
     background-color: #393939 !important;
     padding: 0 !important;
 }
-
-
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
-.navbar-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  margin-top: 20px;
-}
 
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin-top: 20px;
+}
 /* Flip around the padding for proper display in narrow viewports */
+
 .navbar-wrapper .container {
-  padding-left: 0;
-  padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 .navbar-wrapper .navbar {
-  padding-left: 15px;
-  padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
-
-.navbar-content
-{
-    width:320px;
+.navbar-content {
+    width: 320px;
     padding: 15px;
-    padding-bottom:0px;
+    padding-bottom: 0px;
 }
-.navbar-content:before, .navbar-content:after
-{
+.navbar-content:before,
+.navbar-content:after {
     display: table;
     content: "";
     line-height: 0;
 }
 .navbar-nav.navbar-right:last-child {
-margin-right: 15px !important;
+    margin-right: 15px !important;
 }
-.navbar-footer 
-{
-    background-color:#DDD;
+.navbar-footer {
+    background-color: #DDD;
 }
-.navbar-footer-content { padding:15px 15px 15px 15px; }
+.navbar-footer-content {
+    padding: 15px 15px 15px 15px;
+}
 .dropdown-menu {
-padding: 0px;
-overflow: hidden;
+    padding: 0px;
+    overflow: hidden;
+}
+
+
+.inf-scroll-outer-container.horizontal {
+    overflow-x: scroll;
+    white-space: nowrap;
+    width: 200px;
+}
+.inf-scroll-outer-container.horizontal > .inf-scroll-inner-container {
+    display: inline;
+}
+.inf-scroll-outer-container.horizontal > .inf-scroll-inner-container > * {
+    display: inline-block;
+}
+
+.inf-scroll-outer-container.vertical {
+    overflow-y: scroll;
+    height: 500px;
+}
+.inf-scroll-outer-container.vetical > .inf-scroll-inner-container > * {
+    display: block;
+}
+.inf-scroll-inner-container {
+    overflow: visible;
 }
