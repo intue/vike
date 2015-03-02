@@ -1,0 +1,36 @@
+<div class="col-md-6">
+    <div class="panel">
+        <div class="panel-heading">
+            <h4 class="panel-title">{{title}}</h4>
+        </div>
+        <div class="panel-body">
+            <div class="vid">
+                <div id="ytapiplayer">
+                    You need Flash player 8+ and JavaScript enabled to view this video.
+                </div>
+            </div>
+            </br>
+            <span class="glyphicon glyphicon-time">{{format-date publishedAt}}</span>
+            </br>
+            <span class="glyphicon glyphicon-play-circle">{{viewCount}}</span>
+            </br>
+            <span class="glyphicon glyphicon-thumbs-up">{{likeCount}}</span>
+            </br>
+            <span class="glyphicon glyphicon-thumbs-down">{{dislikeCount}}</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="list-group">
+        {{#each relatedVideos}} {{#link-to 'player' this.id class='list-group-item'}}
+        <div class="row">
+            <div class="col-md-5">
+                <img {{bind-attr src=thumbnail alt=title}}>
+            </div>
+            <div class="col-md-7">
+                <span>{{title}}</span>
+            </div>
+        </div>
+        {{/link-to}} {{/each}}
+    </div>
+</div>

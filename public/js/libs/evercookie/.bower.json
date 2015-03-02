@@ -1,0 +1,13 @@
+{
+  "name": "evercookie",
+  "homepage": "https://github.com/samyk/evercookie",
+  "_release": "af34cf7dbc",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "af34cf7dbcdc9be2861ec1041211f4afeed9513d"
+  },
+  "_source": "https://github.com/samyk/evercookie.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/samyk/evercookie.git"
+}
