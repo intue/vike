@@ -4,7 +4,8 @@
   "description": "0.1.0",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "postinstall": "grunt heroku"
   },
   "repository": {
     "type": "git",
