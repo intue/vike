@@ -59,7 +59,9 @@ app.post('/api/v2/userbehaviour', function (req, res) {
 //};
 //walk(routes_path);
 
-server.listen(process.env.PORT || 5000);
+process.env.PORT = process.env.PORT || 5000;
+
+server.listen(process.env.PORT);
 
 io.sockets.on('connection', function (socket) {
     //https://github.com/LearnBoost/socket.io/wiki/Rooms
@@ -81,4 +83,4 @@ emitter.on('userPlaying', function (channeldata) {
     io.sockets.in(channeldata.channel).emit('event', channeldata.data);
 });
 
-console.log("App listening on port 5800");
+console.log("App listening on port " + process.env.PORT);

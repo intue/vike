@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:5800/');
+var socket = io.connect('/');
 
 socket.emit('subscribe', 'abc');
 
