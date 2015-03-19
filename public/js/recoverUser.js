@@ -14,5 +14,7 @@ initVikeUser = new Ember.RSVP.Promise(function (resolve, reject) {
     //         });          
     //     }
     // });
-    resolve();
+    setTimeout(function() {
+      resolve('success');
+    });
 });
