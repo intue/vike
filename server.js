@@ -26,7 +26,7 @@ require('./api/googledata')(app);
 
 app.get('/api/v2/user/initialize', function (req, res) {
     var cipher = crypto.createCipher('aes-256-cbc', decryptKey);
-    var encryptedUserId = cipher.update(userId, 'utf8', 'base64');
+    var encryptedUserId = cipher.update(uuid.v4(), 'utf8', 'base64');
     encryptedUserId = encryptedUserId + cipher.final('base64');
     res.end(encryptedUserId);
 });
