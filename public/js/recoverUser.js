@@ -11,10 +11,9 @@ initVikeUser = new Ember.RSVP.Promise(function (resolve, reject) {
     //         Ember.$.getJSON('/api/v2/user/initialize/', function (data) {
     //             ec.set('VIKEYR', data);
     //             resolve(encodeURIComponent(data));
-    //         });          
+    //         });
     //     }
     // });
-    setTimeout(function() {
-      resolve('success');
-    });
+    
+    resolve();
 });
