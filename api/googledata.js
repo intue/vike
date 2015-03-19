@@ -1,7 +1,7 @@
 var when = require('when');
 var getGoogleYouTubeClinet = require('./getYouTubeClient.js')();
 
-var API_KEY = 'AIzaSyCT8CYXZFfpPtVWja4bNw2CiCewdhzDiLY';
+var API_KEY = process.env.API_KEY || 'ABCDEFGH';
 
 var getCategoryList = function getCategoryList(client, countryCode) {
     var deferred = when.defer();
