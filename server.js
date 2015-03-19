@@ -59,7 +59,7 @@ app.post('/api/v2/userbehaviour', function (req, res) {
 //};
 //walk(routes_path);
 
-server.listen(5800);
+server.listen(process.env.PORT || 5000);
 
 io.sockets.on('connection', function (socket) {
     //https://github.com/LearnBoost/socket.io/wiki/Rooms
