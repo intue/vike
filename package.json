@@ -36,6 +36,6 @@
     "grunt-contrib-watch": "~0.4.4",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-sass": "~0.4.1",
-    "grunt-ember-templates": "*"
+    "grunt-ember-templates": "0.4.21"
   }
 }

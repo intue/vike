@@ -16,7 +16,8 @@ module.exports = function(grunt) {
     emberTemplates: {
       compile: {
         options: {
-          templateBasePath: /public\/templates\//
+          templateBasePath: /public\/templates\//,
+          templateNamespace: 'Handlebars'
         },
         files: {
           'public/js/templates.js': 'public/templates/**/*.hbs'
@@ -68,4 +69,5 @@ module.exports = function(grunt) {
   // Default task(s).
   //grunt.registerTask('default', ['sass', 'concat', 'emberTemplates']);
   grunt.registerTask('default', ['emberTemplates']);
+  grunt.registerTask('heroku', ['emberTemplates']);
 };

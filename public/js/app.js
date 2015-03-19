@@ -2,7 +2,7 @@ Vike = Ember.Application.create();
 
 initVikeUser.then(function (vikeyr) {
     DS.RESTAdapter.reopen({
-        host: 'http://localhost:5800/api/v2',
+        host: '/api/v2',
         headers: {
             'VIKEYR': vikeyr
         }
