@@ -68,4 +68,5 @@ module.exports = function(grunt) {
   // Default task(s).
   //grunt.registerTask('default', ['sass', 'concat', 'emberTemplates']);
   grunt.registerTask('default', ['emberTemplates']);
+  grunt.registerTask('heroku', ['emberTemplates']);
 };
